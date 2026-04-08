@@ -1,0 +1,65 @@
+
+.author-container {
+  padding: 40px;
+  background-color: #fdfaf5; 
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.author-title {
+  color: #3e3a35;
+  font-size: 2.5rem;
+  border-bottom: 2px solid #e0d9cf;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.author-table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.author-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.author-table th {
+  background-color: #f4f1ea;
+  color: #6b6359;
+  text-align: left;
+  padding: 15px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.author-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f0ede8;
+  color: #4a453f;
+}
+
+.author-table tr:hover {
+  background-color: #fffcf7;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.status-active {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-deceased {
+  background-color: #f5f5f5;
+  color: #757575;
+}

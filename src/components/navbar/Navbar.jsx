@@ -17,7 +17,7 @@ function Navbar() {
             <nav className={`${open ? 'flex' : 'hidden'} w-full lg:flex justify-center lg:w-[60%]`} >
                 <ul className='flex flex-col lg:flex-row items-center w-[50%]' >
                     <li className='w-full text-center p-2' >
-                        <a href="/" className='text-xl font-medium' onClick={() => setOpen(false)}>Home</a>
+                        <a href="/" className='text-xl font-medium' onClick={() => setOpen(false)}>categorias</a>
                     </li>
                     <li className='w-full text-center p-2'>
                         <a href="/" className='text-xl font-medium' onClick={() => setOpen(false)}>Autores</a>

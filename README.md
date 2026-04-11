@@ -27,12 +27,10 @@ Durante esta etapa, el equipo se centró en la creación de la arquitectura visu
 ## 📸 Vista Previa 
 
 ### (Home)
-`[ARRASTRE_AQUÍ_IMAGEN_DE_HOME]`
-
-### Estructura de Módulos
-`[ARRASTRE_AQUÍ_IMAGEN_DE_MÓDULOS]`
-
----
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b6fef148-608b-4bdb-a575-021fb1461695" width="400">
+  <p><i>Vista previa de la Home - Library Project</i></p>
+</div>
 
 ## 📐 Diseño y Organización
 El desarrollo visual se guio por:

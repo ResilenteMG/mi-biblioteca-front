@@ -1,20 +1,21 @@
 import axios from 'axios';
 
-// Apunta a la API 
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = '/api';
 
-
-export const getBooks = () => 
+export const getBooks = () =>
     axios.get(`${BASE_URL}/books`).then(res => res.data);
 
-
-export const getBookById = (id) => 
+export const getBookById = (id) =>
     axios.get(`${BASE_URL}/books/${id}`).then(res => res.data);
 
-
-export const createBook = (bookData) => 
+export const createBook = (bookData) =>
     axios.post(`${BASE_URL}/books`, bookData).then(res => res.data);
 
+export const updateBook = (id, bookData) =>
+    axios.put(`${BASE_URL}/books/${id}`, bookData).then(res => res.data);
 
-export const deleteBook = (id) => 
+export const deleteBook = (id) =>
     axios.delete(`${BASE_URL}/books/${id}`);
+
+export const getBooksByCategory = (category) =>
+    axios.get(`${BASE_URL}/books/category/${category}`).then(res => res.data);

@@ -1,10 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AuthorList from './pages/Authors/AuthorList'; // Importas tu componente
+import AuthorList from './pages/Authors/AuthorList';
 import AuthorForm from './pages/Authors/AuthorForm';
 import BookList from './pages/Books/BookList';
 import BookForm from './pages/Books/BookForm';
 import Home from './pages/Home';
-// Importa también el Header de Sergio si ya lo tiene listo
 
 function App() {
   return (
@@ -13,8 +12,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/authors" element={<AuthorList />} />
         <Route path="/authors/new" element={<AuthorForm />} />
+        <Route path="/authors/:id/edit" element={<AuthorForm />} />
         <Route path="/books" element={<BookList />} />
         <Route path="/books/new" element={<BookForm />} />
+        <Route path="/books/:id/edit" element={<BookForm />} />
       </Routes>
     </Router>
   );

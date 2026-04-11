@@ -1,15 +1,21 @@
 import axios from 'axios';
 
-// Esta es la URL base. Cuando Juanlu te pase la suya, solo la cambias aquí.
-const API_URL = "http://localhost:8080/api/authors"; 
+const BASE_URL = '/api';
 
-export const getAuthors = async () => {
-  try {
-    const response = await axios.get(API_URL);
-    // Retornamos los datos (el JSON con name, lastname, etc.)
-    return response.data; 
-  } catch (error) {
-    console.error("Error al obtener la lista de autores:", error);
-    throw error;
-  }
-};
+export const getAuthors = () =>
+    axios.get(`${BASE_URL}/authors`).then(res => res.data);
+
+export const getAuthorById = (id) =>
+    axios.get(`${BASE_URL}/authors/${id}`).then(res => res.data);
+
+export const createAuthor = (authorData) =>
+    axios.post(`${BASE_URL}/authors/new`, authorData).then(res => res.data);
+
+export const updateAuthor = (id, authorData) =>
+    axios.put(`${BASE_URL}/authors/${id}`, authorData).then(res => res.data);
+
+export const deleteAuthor = (id) =>
+    axios.delete(`${BASE_URL}/authors/${id}`);
+
+export const getAuthorsByCategory = (category) =>
+    axios.get(`${BASE_URL}/authors/category/${category}`).then(res => res.data);

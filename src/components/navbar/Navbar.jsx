@@ -1,35 +1,53 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
-    const [open, setOpen] = useState(false);
-    return (
-        <header className='flex flex-col p-4 bg-[#f4f1ec] lg:flex-row items-center justify-center'>
-            <div className='flex justify-center items-center w-full lg:w-[40%] lg:gap-8'>
+  const [open, setOpen] = useState(false);
 
-                <h1 className='text-2xl font-serif leading-tight font-bold text-gray-700'>Library</h1>
+  return (
+    <header className="flex flex-col p-4 bg-[#f4f1ec] lg:flex-row items-center justify-between shadow-sm border-b border-orange-100">
+      <div className="flex justify-between items-center w-full lg:w-[30%]">
+        <Link to="/" className="text-2xl font-serif font-bold text-gray-800 tracking-tighter">
+          LIBRARY
+        </Link>
+        <button className="lg:hidden text-2xl" onClick={() => setOpen(!open)}>
+          {open ? '✕' : '≡'}
+        </button>
+      </div>
 
-                <button className='lg:hidden' onClick={() => setOpen(!open)}>
-                    {open ? 'X' : '☰'}
-                </button>
-            </div>
-
-
-            <nav className={`${open ? 'flex' : 'hidden'} w-full lg:flex justify-center lg:w-[60%]`} >
-                <ul className='flex flex-col lg:flex-row items-center w-[50%]' >
-                    <li className='w-full text-center p-2' >
-                        <a href="/" className='text-xl font-medium' onClick={() => setOpen(false)}>categorias</a>
-                    </li>
-                    <li className='w-full text-center p-2'>
-                        <a href="/" className='text-xl font-medium' onClick={() => setOpen(false)}>Autores</a>
-                    </li>
-                    <li className='w-full text-center p-2'>
-                        <a href="/" className='text-xl font-medium' onClick={() => setOpen(false)}>Libros</a>
-                    </li>
-
-                </ul>
-            </nav>
-           
-        </header>
-    )
+      <nav className={`${open ? 'flex' : 'hidden'} w-full lg:flex justify-end lg:w-[70%]`}>
+        <ul className="flex flex-col lg:flex-row items-center gap-8 py-4 lg:py-0">
+          <li>
+            <Link 
+              to="/" 
+              className="text-xs font-bold uppercase tracking-[0.2em] text-gray-600 hover:text-orange-800 transition"
+              onClick={() => setOpen(false)}
+            >
+              Inicio
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/libros" 
+              className="text-xs font-bold uppercase tracking-[0.2em] text-gray-600 hover:text-orange-800 transition"
+              onClick={() => setOpen(false)}
+            >
+              Libros
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/autores" 
+              className="text-xs font-bold uppercase tracking-[0.2em] text-gray-600 hover:text-orange-800 transition"
+              onClick={() => setOpen(false)}
+            >
+              Autores
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
 }
+
 export default Navbar;

@@ -1,16 +1,13 @@
 import axios from 'axios';
 
-// endpoints del backend
-const BASE_URL = 'http://localhost:8080/api';
+const API_URL = 'http://localhost:8080/api/authors';
 
-export const getAuthors = () => 
-    axios.get(`${BASE_URL}/authors`).then(res => res.data);
+export const getAuthors = async () => {
+  const response = await axios.get(API_URL);
+  return response.data;
+};
 
-export const getAuthorById = (id) => 
-    axios.get(`${BASE_URL}/authors/${id}`).then(res => res.data);
-
-export const createAuthor = (authorData) => 
-    axios.post(`${BASE_URL}/authors`, authorData).then(res => res.data);
-
-export const deleteAuthor = (id) => 
-    axios.delete(`${BASE_URL}/authors/${id}`);
+export const createAuthor = async (authorData) => {
+  const response = await axios.post(`${API_URL}/new`, authorData);
+  return response.data;
+};

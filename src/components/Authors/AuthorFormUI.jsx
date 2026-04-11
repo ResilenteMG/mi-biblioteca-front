@@ -1,38 +1,103 @@
 import React from 'react';
 
 export default function AuthorFormUI({ formData, setFormData, onSubmit, onClear }) {
+  
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value
+    });
+  };
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#f4f1ec] p-4">
-      <div className="bg-[#fdf9f1] w-full max-w-2xl p-10 rounded-2xl shadow-xl border border-orange-100">
-        <h2 className="text-3xl font-serif font-bold text-gray-800 mb-8 text-center uppercase tracking-widest">
-          Registro de Autor
+    <div className="flex justify-center py-10">
+      <form 
+        onSubmit={onSubmit} 
+        className="bg-[#fdfaf5] p-10 rounded-[30px] shadow-xl w-full max-w-2xl border border-gray-100"
+      >
+        <h2 className="text-3xl font-bold text-[#2c3e50] text-center mb-8 tracking-widest uppercase">
+          Registrar Autor
         </h2>
-        <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="flex flex-col">
-            <label className="text-gray-700 font-medium mb-1">Nombre</label>
-            <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange-200 outline-none" required />
+
+        <div className="space-y-6 text-left">
+          <div>
+            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Nombre</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full bg-transparent border-b border-gray-300 py-2 outline-none focus:border-green-700 transition-colors"
+              required
+            />
           </div>
-          <div className="flex flex-col">
-            <label className="text-gray-700 font-medium mb-1">Apellidos</label>
-            <input type="text" value={formData.surname} onChange={(e) => setFormData({...formData, surname: e.target.value})} className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange-200 outline-none" required />
+
+          <div>
+            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Apellido</label>
+            <input
+              type="text"
+              name="surname"
+              value={formData.surname}
+              onChange={handleChange}
+              className="w-full bg-transparent border-b border-gray-300 py-2 outline-none focus:border-green-700 transition-colors"
+              required
+            />
           </div>
-          <div className="flex flex-col">
-            <label className="text-gray-700 font-medium mb-1">Año Nacimiento</label>
-            <input type="number" value={formData.birthYear} onChange={(e) => setFormData({...formData, birthYear: e.target.value})} className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange-200 outline-none" required />
+
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Nacionalidad</label>
+              <input
+                type="text"
+                name="nationality"
+                value={formData.nationality}
+                onChange={handleChange}
+                className="w-full bg-transparent border-b border-gray-300 py-2 outline-none focus:border-green-700 transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Año de Nacimiento</label>
+              <input
+                type="number"
+                name="birthYear"
+                value={formData.birthYear}
+                onChange={handleChange}
+                className="w-full bg-transparent border-b border-gray-300 py-2 outline-none focus:border-green-700 transition-colors"
+              />
+            </div>
           </div>
-          <div className="flex flex-col">
-            <label className="text-gray-700 font-medium mb-1">¿Está vivo?</label>
-            <select value={formData.alive} onChange={(e) => setFormData({...formData, alive: e.target.value === 'true'})} className="p-2 border border-gray-300 rounded bg-white outline-none">
-              <option value="true">Vivo</option>
-              <option value="false">Fallecido</option>
-            </select>
+
+          <div className="flex items-center space-x-3 pt-4">
+            <input
+              type="checkbox"
+              name="alive"
+              checked={formData.alive}
+              onChange={handleChange}
+              className="w-5 h-5 accent-green-700"
+            />
+            <span className="text-sm text-gray-600 font-medium">
+              {formData.alive ? '✅ El autor sigue con vida' : '❌ El autor ha fallecido'}
+            </span>
           </div>
-          <div className="md:col-span-2 flex justify-end gap-4 mt-6">
-            <button type="button" onClick={onClear} className="px-8 py-2 bg-red-800 text-white rounded-full font-bold hover:bg-red-900 transition shadow-md">Borrar</button>
-            <button type="submit" className="px-8 py-2 bg-green-800 text-white rounded-full font-bold hover:bg-green-900 transition shadow-md">Aceptar</button>
-          </div>
-        </form>
-      </div>
+        </div>
+
+        <div className="mt-10 flex justify-center space-x-4">
+          <button 
+            type="button" 
+            onClick={onClear}
+            className="bg-[#a30000] text-white px-10 py-3 rounded-full font-bold hover:bg-red-800 transition-all shadow-md"
+          >
+            Borrar
+          </button>
+          <button 
+            type="submit" 
+            className="bg-[#006335] text-white px-10 py-3 rounded-full font-bold hover:bg-green-800 transition-all shadow-md"
+          >
+            Aceptar
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

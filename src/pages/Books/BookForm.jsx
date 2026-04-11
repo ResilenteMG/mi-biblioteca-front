@@ -3,42 +3,56 @@ import BookFormUI from '../../components/Books/BookFormUI';
 import { createBook } from '../../services/bookService';
 import { getAuthors } from '../../services/authorService';
 
-export default function BookFormPage() {
+export default function BookForm({ onBookAdded }) {
   const [authors, setAuthors] = useState([]);
-  const [formData, setFormData] = useState({ title: '', isbn: '', authorId: '', image: '' });
+  const [formData, setFormData] = useState({ 
+    title: '', 
+    isbn: '', 
+    publicationYear: '',
+    image: '',
+    authorId: '' 
+  });
 
   useEffect(() => {
-    const loadAuthors = async () => {
+    const fetchAuthors = async () => {
       try {
         const data = await getAuthors();
         setAuthors(data);
       } catch (err) {
-        console.error("Error al cargar autores:", err);
+        console.error(err);
       }
     };
-    loadAuthors();
+    fetchAuthors();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createBook(formData);
-      alert("Libro añadido a la colección");
-      handleClear();
+      const dataToSend = {
+        ...formData,
+        publicationYear: formData.publicationYear ? parseInt(formData.publicationYear) : null
+      };
+      await createBook(dataToSend);
+      setFormData({ title: '', isbn: '', publicationYear: '', image: '', authorId: '' });
+      if (onBookAdded) onBookAdded();
+      alert("Libro registrado con éxito");
     } catch (err) {
-      alert("Error al guardar el libro");
+      console.error(err);
+      alert("Error al registrar el libro");
     }
   };
 
-  const handleClear = () => setFormData({ title: '', isbn: '', authorId: '', image: '' });
+  const handleClear = () => {
+    setFormData({ title: '', isbn: '', publicationYear: '', image: '', authorId: '' });
+  };
 
   return (
     <BookFormUI 
       formData={formData} 
       setFormData={setFormData} 
+      authors={authors}
       onSubmit={handleSubmit} 
       onClear={handleClear} 
-      authors={authors} 
     />
   );
 }

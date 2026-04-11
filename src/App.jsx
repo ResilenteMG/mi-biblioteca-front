@@ -1,30 +1,18 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AuthorList from './pages/Authors/AuthorList'; // Importas tu componente
-import AuthorForm from './pages/Authors/AuthorForm';
-import BookList from './pages/Books/BookList';
-import BookForm from './pages/Books/BookForm';
-import Home from './pages/Home';
-// Importa también el Header de Sergio si ya lo tiene listo
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import AuthorList from "./pages/Authors/AuthorList";
+import BookList from "./pages/Books/BookList";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <Router>
-      {/* Aquí iría el <Header /> de Sergio */}
       <Routes>
-        {/* Definimos que la ruta principal o /authors muestre tu lista */}
-        <Route path="/" element={<AuthorList />} />
-        <Route path="/authors" element={<AuthorList />} />
-        <Route path="/authors/new" element={<AuthorForm />} />
-        <Route path="/books" element={<BookList />} />
-        <Route path="/books/new" element={<BookForm />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/libros" element={<BookList />} />
+        <Route path="/autores" element={<AuthorList />} />
       </Routes>
-      <div className='bg-[#f4f1ec] min-h-screen'>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/authors" element={<AuthorList />} />
-          <Route path="/authors/new" element={<AuthorForm />} />
-        </Routes>
-      </div>
     </Router>
   );
 }

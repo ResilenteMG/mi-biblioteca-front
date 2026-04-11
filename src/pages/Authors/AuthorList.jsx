@@ -1,28 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import AuthorListUI from '../../components/Authors/AuthorListUI';
+import { getAuthors, deleteAuthor } from '../../services/authorService';
 
-const AuthorList = () => {
-    const [authors, setAuthors] = useState([]);
+export default function AuthorListPage() {
+  const [authors, setAuthors] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/authors')
-            .then(res => setAuthors(res.data))
-            .catch(err => console.log(err));
-    }, []);
+  const fetchAuthors = async () => {
+    try {
+      const data = await getAuthors(); // getAuthors ya devuelve res.data según tu captura
+      setAuthors(data);
+    } catch (err) {
+      console.error("No se pudieron cargar los autores");
+    }
+  };
 
-    return (
-        <div className="p-8">
-            <h2 className="text-3xl font-bold mb-6">Authors</h2>
-            <div className="space-y-4">
-                {authors.map((author) => (
-                    <div key={author.id} className="p-4 border-b">
-                        <p className="font-bold text-lg">{author.name}</p>
-                        <p className="text-gray-600">{author.nationality}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
+  useEffect(() => { fetchAuthors(); }, []);
 
-export default AuthorList;
+  const handleDelete = async (id) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este autor?")) {
+      try {
+        await deleteAuthor(id);
+        setAuthors(authors.filter(a => a.id !== id));
+      } catch (err) {
+        alert("Error al intentar eliminar");
+      }
+    }
+  };
+
+  return <AuthorListUI authors={authors} onDelete={handleDelete} />;
+}

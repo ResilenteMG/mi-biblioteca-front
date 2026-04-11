@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import AuthorFormUI from '../../components/Authors/AuthorFormUI';
+import { createAuthor } from '../../services/authorService';
 
-const AuthorForm = () => {
-    const [name, setName] = useState('');
-    const [nationality, setNationality] = useState('');
+export default function AuthorFormPage() {
+  const [formData, setFormData] = useState({ name: '', surname: '', nationality: '', birthYear: '', alive: true });
 
-    const saveAuthor = (e) => {
-        e.preventDefault();
-        axios.post('http://localhost:8080/api/authors', { name, nationality })
-            .then(() => alert("Autor guardado"))
-            .catch(err => console.log(err));
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Usamos el servicio que mostraste en tu captura
+      await createAuthor({ ...formData, birthYear: parseInt(formData.birthYear) });
+      alert("¡Autor registrado con éxito!");
+      handleClear();
+    } catch (error) {
+      alert("Error al conectar con el servidor");
+    }
+  };
 
-    return (
-        <form onSubmit={saveAuthor} className="p-8 space-y-4">
-            <input placeholder="Name" onChange={e => setName(e.target.value)} className="border p-2 w-full" />
-            <input placeholder="Nationality" onChange={e => setNationality(e.target.value)} className="border p-2 w-full" />
-            <button type="submit" className="bg-green-500 text-white p-2">Save Author</button>
-        </form>
-    );
-};
+  const handleClear = () => setFormData({ name: '', surname: '', nationality: '', birthYear: '', alive: true });
 
-export default AuthorForm;
+  return <AuthorFormUI formData={formData} setFormData={setFormData} onSubmit={handleSubmit} onClear={handleClear} />;
+}

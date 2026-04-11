@@ -1,26 +1,44 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import BookFormUI from '../../components/Books/BookFormUI';
+import { createBook } from '../../services/bookService';
+import { getAuthors } from '../../services/authorService';
 
-const BookForm = () => {
-    const [title, setTitle] = useState('');
-    const [isbn, setIsbn] = useState('');
-    const [year, setYear] = useState('');
+export default function BookFormPage() {
+  const [authors, setAuthors] = useState([]);
+  const [formData, setFormData] = useState({ title: '', isbn: '', authorId: '', image: '' });
 
-    const saveBook = (e) => {
-        e.preventDefault();
-        axios.post('http://localhost:8080/api/books', { title, isbn, year })
-            .then(() => alert("Libro guardado"))
-            .catch(err => console.log(err));
+  useEffect(() => {
+    const loadAuthors = async () => {
+      try {
+        const data = await getAuthors();
+        setAuthors(data);
+      } catch (err) {
+        console.error("Error al cargar autores:", err);
+      }
     };
+    loadAuthors();
+  }, []);
 
-    return (
-        <form onSubmit={saveBook} className="p-8 space-y-4">
-            <input placeholder="Title" onChange={e => setTitle(e.target.value)} className="border p-2 w-full" />
-            <input placeholder="ISBN" onChange={e => setIsbn(e.target.value)} className="border p-2 w-full" />
-            <input placeholder="Year" type="number" onChange={e => setYear(e.target.value)} className="border p-2 w-full" />
-            <button type="submit" className="bg-blue-500 text-white p-2">Save Book</button>
-        </form>
-    );
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await createBook(formData);
+      alert("Libro añadido a la colección");
+      handleClear();
+    } catch (err) {
+      alert("Error al guardar el libro");
+    }
+  };
 
-export default BookForm;
+  const handleClear = () => setFormData({ title: '', isbn: '', authorId: '', image: '' });
+
+  return (
+    <BookFormUI 
+      formData={formData} 
+      setFormData={setFormData} 
+      onSubmit={handleSubmit} 
+      onClear={handleClear} 
+      authors={authors} 
+    />
+  );
+}

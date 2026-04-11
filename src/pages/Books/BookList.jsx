@@ -1,28 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import BookListUI from '../../components/Books/BookListUI';
+import { getBooks, deleteBook } from '../../services/bookService';
 
-const AuthorList = () => {
-    const [authors, setAuthors] = useState([]);
+export default function BookListPage() {
+  const [books, setBooks] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/authors')
-            .then(res => setAuthors(res.data))
-            .catch(err => console.log(err));
-    }, []);
+  const fetchBooks = async () => {
+    try {
+      const data = await getBooks(); 
+      setBooks(data);
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
 
-    return (
-        <div className="p-8">
-            <h2 className="text-3xl font-bold mb-6">Authors</h2>
-            <div className="space-y-4">
-                {authors.map((author) => (
-                    <div key={author.id} className="p-4 border-b">
-                        <p className="font-bold text-lg">{author.name}</p>
-                        <p className="text-gray-600">{author.nationality}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
-export default AuthorList;
+  const handleDelete = async (id) => {
+    if (window.confirm("¿Deseas retirar este volumen de la colección?")) {
+      try {
+        await deleteBook(id);
+        setBooks(books.filter(book => book.id !== id));
+      } catch (err) {
+        alert("No se pudo eliminar el libro.");
+      }
+    }
+  };
+
+  return <BookListUI books={books} onDelete={handleDelete} />;
+}

@@ -7,7 +7,7 @@ function Banner() {
     ];
 
     return (
-        <section className='bg-[#f4f1ec] px-8 py-16 max-w-6xl mx-auto'>
+        <section className='px-8 py-16 max-w-6xl mx-auto'>
 
             {/* Título */}
             <h2 className='text-center font-serif font-bold text-5xl tracking-widest text-gray-800 mb-6'>
@@ -32,7 +32,7 @@ function Banner() {
                         <img
                             src={book.cover}
                             alt={book.title}
-                            className='w-full aspect-[2/3] object-cover rounded-sm shadow-sm'
+                            className='w-full h-80 object-cover rounded-sm shadow-sm'
                         />
                         <p className='font-mono text-xs tracking-widest text-gray-800 mt-1'>
                             {book.title}

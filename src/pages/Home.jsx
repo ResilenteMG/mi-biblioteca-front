@@ -5,12 +5,14 @@ import Footer from '../components/footer/Footer';
 
 function Home () {
     return (
-        <>
+        <div>
             <Navbar />
-            <Carousel />
-            <Banner />
+            <main className='bg-[#f4f1ec]'>
+                <Carousel />
+                <Banner />
+            </main>
             <Footer />
-        </>
+        </div>
     )
 }
 export default Home;

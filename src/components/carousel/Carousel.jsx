@@ -22,7 +22,7 @@ function Carousel() {
     }, [total]);
 
     return (
-        <section className='bg-[#f4f1ec] px-8 py-12 max-w-6xl mx-auto'>
+        <section className='px-8 py-12 max-w-6xl mx-auto'>
 
             {/* Cabecera con título */}
             <div className='flex items-center justify-between mb-8'>
@@ -38,7 +38,7 @@ function Carousel() {
                         <img
                             src={book.cover}
                             alt={book.title}
-                            className='w-full aspect-[2/3] object-cover shadow-sm group-hover:shadow-md transition-shadow'
+                            className='w-full h-80 object-cover shadow-sm group-hover:shadow-md transition-shadow'
                         />
                         <p className='font-mono text-xs tracking-widest text-gray-800 mt-1'>
                             {book.title}

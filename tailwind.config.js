@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         'master-orange': '#c87d5d',
+        'cream': '#f4f1ec',
       },
     },
   },

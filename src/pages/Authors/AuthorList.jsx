@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuthors, deleteAuthor } from '../../services/authorService';
+import Navbar from '../../components/navbar/Navbar';
+import Footer from '../../components/footer/Footer';
 
 const AuthorList = () => {
     const [authors, setAuthors] = useState([]);
@@ -19,41 +21,55 @@ const AuthorList = () => {
     };
 
     return (
-        <div className="p-8">
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-3xl font-bold">Autores</h2>
-                <button
-                    onClick={() => navigate('/authors/new')}
-                    className="bg-green-600 text-white px-4 py-2 rounded"
-                >
-                    + Nuevo autor
-                </button>
-            </div>
-            <div className="space-y-4">
-                {authors.map(author => (
-                    <div key={author.id} className="p-4 border rounded flex justify-between items-center">
-                        <div>
-                            <p className="font-bold text-lg">{author.name} {author.surname}</p>
-                            <p className="text-gray-600">{author.nationality} · {author.birthYear} · {author.category}</p>
-                            <p className="text-sm text-gray-500">{author.alive ? 'Vivo' : 'Fallecido'}</p>
+        <div className='bg-[#f4f1ec] min-h-screen flex flex-col'>
+            <Navbar />
+            <main className='flex-1 max-w-6xl mx-auto w-full px-8 py-12'>
+                <div className='flex items-center justify-between mb-10'>
+                    <h2 className='font-serif text-4xl font-bold text-gray-800'>Autores</h2>
+                    <button
+                        onClick={() => navigate('/authors/new')}
+                        className='font-mono text-xs tracking-widest text-white bg-gray-800 hover:bg-gray-600 transition-colors px-4 py-2'
+                    >
+                        + NUEVO AUTOR
+                    </button>
+                </div>
+
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+                    {authors.map(author => (
+                        <div key={author.id} className='bg-white border border-[#d6d0c4] p-6 flex flex-col gap-3 shadow-sm'>
+                            <div>
+                                <p className='font-serif text-xl font-bold text-gray-800'>
+                                    {author.name} {author.surname}
+                                </p>
+                                <p className='font-mono text-xs tracking-widest text-gray-500 mt-1'>
+                                    {author.nationality} · {author.birthYear}
+                                </p>
+                                <p className='font-mono text-xs tracking-widest text-gray-400'>
+                                    {author.category}
+                                </p>
+                                <p className='font-mono text-xs tracking-widest text-gray-400 mt-1'>
+                                    {author.alive ? 'Vivo' : 'Fallecido'}
+                                </p>
+                            </div>
+                            <div className='flex gap-2 mt-auto pt-3 border-t border-[#d6d0c4]'>
+                                <button
+                                    onClick={() => navigate(`/authors/${author.id}/edit`)}
+                                    className='font-mono text-xs tracking-widest text-gray-700 border border-gray-400 px-3 py-1 hover:bg-gray-100 transition-colors'
+                                >
+                                    EDITAR
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(author.id)}
+                                    className='font-mono text-xs tracking-widest text-white bg-gray-700 px-3 py-1 hover:bg-red-600 transition-colors'
+                                >
+                                    ELIMINAR
+                                </button>
+                            </div>
                         </div>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => navigate(`/authors/${author.id}/edit`)}
-                                className="bg-blue-500 text-white px-3 py-1 rounded"
-                            >
-                                Editar
-                            </button>
-                            <button
-                                onClick={() => handleDelete(author.id)}
-                                className="bg-red-500 text-white px-3 py-1 rounded"
-                            >
-                                Eliminar
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            </main>
+            <Footer />
         </div>
     );
 };

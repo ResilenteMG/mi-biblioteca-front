@@ -3,6 +3,8 @@ import AuthorList from './pages/Authors/AuthorList';
 import AuthorForm from './pages/Authors/AuthorForm';
 import BookList from './pages/Books/BookList';
 import BookForm from './pages/Books/BookForm';
+import CategoryList from './pages/Categories/CategoryList';
+import CategoryBooks from './pages/Categories/CategoryBooks';
 import Home from './pages/Home';
 
 function App() {
@@ -16,9 +18,12 @@ function App() {
         <Route path="/books" element={<BookList />} />
         <Route path="/books/new" element={<BookForm />} />
         <Route path="/books/:id/edit" element={<BookForm />} />
+        <Route path="/categories" element={<CategoryList />} />
+        <Route path="/categories/:category" element={<CategoryBooks />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+

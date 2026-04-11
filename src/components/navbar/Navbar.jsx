@@ -10,7 +10,7 @@ function Navbar() {
                 </Link>
 
                 <nav className='flex items-center gap-6'>
-                    <Link to='/' className='text-lg font-medium text-gray-800 hover:text-gray-500 transition-colors'>
+                    <Link to='/categories' className='text-lg font-medium text-gray-800 hover:text-gray-500 transition-colors'>
                         Categorías
                     </Link>
                     <Link to='/authors' className='text-lg font-medium text-gray-800 hover:text-gray-500 transition-colors'>
